@@ -1,0 +1,23 @@
+Topics are :- Hospital Management System
+Student id :- Neet Vasani(22BCA333) & Smit Vaghasiya(22BCA328)
+Algorithm :- Searching and Sorted
+Framework :- Flask
+Frontend :- HTML , CSS
+Backend :- Python
+
+Search for information about hospitals, medical and laboratories in the city.
+
+City are:-
+	Ahmedabad
+	Surat
+	Vadodara
+	Rajkot
+	Bhavnagar
+	Jamnagar
+	Gandhinagar
+	Anand
+	Nadiad
+	Bhuj
+
+
+

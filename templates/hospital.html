@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+    <style>
+        /* Reset default margin and padding for all elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff; /* Light Blue background */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #333;
+            font-weight: bold;
+            font-size: 36px;
+        }
+
+        .search-form {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .search-form label {
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .search-form input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-form input[type="submit"] {
+            padding: 12px 24px;
+            font-size: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+            max-width: 1200px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .box {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: 0 10px;
+            background-color: #f0f8ff; /* Light Blue background */
+        }
+
+        .box h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .result-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .result-list li {
+            margin-bottom: 20px;
+        }
+
+        .result-list u {
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        h2 {
+            text-align: center;
+            color: #007BFF; /* Blue heading color */
+        }
+    </style>
+</head>
+<body>
+    <h1>Hospital Management System</h1>
+    <div class="search-form">
+        <form action="/search" method="post" autocomplete="off">
+            <label for="city">Enter City:</label>
+            <input type="text" id="city" name="city" required placeholder="Search city">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    <div class="container">
+        <div class="box">
+            <h1>Hospital</h1>
+            {% if city %}
+                <h2>Hospitals in {{ city }}</h2>
+                <br>
+                <ul class="result-list">
+                    {% for store in hospital_display %}
+                        <li>
+                            <u>Name:</u> {{ store['name'] }}<br>
+                            <u>Address:</u> {{ store['address'] }}<br>
+                            <u>Phone No:</u> {{ store['phone'] }}<br>
+                            <u>City:</u> {{ store['city'] }}<br>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="box">
+            <h1>Laboratory</h1>
+            <!-- Use the correct class name for the Laboratory section -->
+            {% if city %}
+                <h2>Laboratory in {{ city }}</h2>
+                <br>
+                <ul class="result-list">
+                    {% for store in lab_display %}
+                        <li>
+                            <u>Name:</u> {{ store['name'] }}<br>
+                            <u>Address:</u> {{ store['address'] }}<br>
+                            <u>Phone No:</u> {{ store['phone'] }}<br>
+                            <u>City:</u> {{ store['city'] }}<br>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="box">
+            <h1>Medical</h1>
+            <!-- Insert your template code here for the Medical section -->
+            {% if city %}
+                <h2>Medical in {{ city }}</h2>
+                <br>
+                <ul class="result-list">
+                    {% for store in medical_display %}
+                        <li>
+                            <u>Name:</u> {{ store['name'] }}<br>
+                            <u>Address:</u> {{ store['address'] }}<br>
+                            <u>Phone No:</u> {{ store['phone'] }}<br>
+                            <u>City:</u> {{ store['city'] }}<br>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+    <h1> Copyright @2023 Hospital Managment System</h1>
+</body>
+</html>
