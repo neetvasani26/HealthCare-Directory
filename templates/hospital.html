@@ -3,9 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hospital Management System</title>
+    <title>HealthCare Directory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/205/205881.png" type="image/x-icon">
     <style>
-        /* Reset default margin and padding for all elements */
+        :root {
+            --primary-color: #2a7fba;
+            --secondary-color: #4fc3f7;
+            --accent-color: #ff7d47;
+            --light-bg: #f5f9fc;
+            --dark-text: #2d3748;
+            --light-text: #718096;
+            --white: #ffffff;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,165 +25,326 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f8ff; /* Light Blue background */
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            margin: 20px 0;
-            color: #333;
-            font-weight: bold;
-            font-size: 36px;
-        }
-
-        .search-form {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .search-form label {
-            font-size: 24px;
-            color: #333;
-            font-weight: bold;
-        }
-
-        .search-form input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            font-size: 18px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .search-form input[type="submit"] {
-            padding: 12px 24px;
-            font-size: 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .search-form input[type="submit"]:hover {
-            background-color: #0056b3;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
         }
 
         .container {
-            display: flex;
-            justify-content: space-between;
+            max-width: 1400px;
             margin: 0 auto;
-            max-width: 1200px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 0 20px;
         }
 
-        .box {
-            flex: 1;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            margin: 0 10px;
-            background-color: #f0f8ff; /* Light Blue background */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1.5rem 0;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            z-index: 10;
         }
 
-        .box h1 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: #333;
+        .header-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .result-list {
-            list-style-type: none;
-            padding: 0;
-            text-align: left;
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
         }
 
-        .result-list li {
-            margin-bottom: 20px;
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
         }
 
-        .result-list u {
-            font-weight: bold;
-            color: #007BFF;
-        }
-
-        h2 {
+        .search-section {
+            padding: 3rem 0;
             text-align: center;
-            color: #007BFF; /* Blue heading color */
+            background-color: var(--white);
+            margin: -1rem 0 2rem 0;
+            box-shadow: var(--card-shadow);
+            border-radius: 0 0 10px 10px;
+        }
+
+        .search-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-text);
+        }
+
+        .search-input-group {
+            display: flex;
+            width: 100%;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 50px 0 0 50px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--secondary-color);
+        }
+
+        .search-btn {
+            padding: 0 2rem;
+            background-color: var(--accent-color);
+            color: var(--white);
+            border: none;
+            border-radius: 0 50px 50px 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background-color: #e66a3a;
+        }
+
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .result-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .result-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .result-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .result-value {
+            color: var(--dark-text);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: var(--light-text);
+            font-size: 1.2rem;
+        }
+
+        footer {
+            background-color: var(--dark-text);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .search-input-group {
+                flex-direction: column;
+            }
+
+            .search-input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+            }
+
+            .search-btn {
+                border-radius: 50px;
+                padding: 1rem;
+            }
+
+            .results-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <h1>Hospital Management System</h1>
-    <div class="search-form">
-        <form action="/search" method="post" autocomplete="off">
-            <label for="city">Enter City:</label>
-            <input type="text" id="city" name="city" required placeholder="Search city">
-            <input type="submit" value="Search">
-        </form>
-    </div>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-hospital"></i>
+                <span>HealthCare Directory</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="search-section">
+        <div class="container">
+            <h2 class="search-title">Find Healthcare Facilities Near You</h2>
+            <form action="/search" method="post" autocomplete="off" class="search-form">
+                <div class="search-input-group">
+                    <input type="text" id="city" name="city" required placeholder="Enter city name..." class="search-input">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
     <div class="container">
-        <div class="box">
-            <h1>Hospital</h1>
-            {% if city %}
-                <h2>Hospitals in {{ city }}</h2>
-                <br>
-                <ul class="result-list">
-                    {% for store in hospital_display %}
-                        <li>
-                            <u>Name:</u> {{ store['name'] }}<br>
-                            <u>Address:</u> {{ store['address'] }}<br>
-                            <u>Phone No:</u> {{ store['phone'] }}<br>
-                            <u>City:</u> {{ store['city'] }}<br>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-        <div class="box">
-            <h1>Laboratory</h1>
-            <!-- Use the correct class name for the Laboratory section -->
-            {% if city %}
-                <h2>Laboratory in {{ city }}</h2>
-                <br>
-                <ul class="result-list">
-                    {% for store in lab_display %}
-                        <li>
-                            <u>Name:</u> {{ store['name'] }}<br>
-                            <u>Address:</u> {{ store['address'] }}<br>
-                            <u>Phone No:</u> {{ store['phone'] }}<br>
-                            <u>City:</u> {{ store['city'] }}<br>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-        <div class="box">
-            <h1>Medical</h1>
-            <!-- Insert your template code here for the Medical section -->
-            {% if city %}
-                <h2>Medical in {{ city }}</h2>
-                <br>
-                <ul class="result-list">
-                    {% for store in medical_display %}
-                        <li>
-                            <u>Name:</u> {{ store['name'] }}<br>
-                            <u>Address:</u> {{ store['address'] }}<br>
-                            <u>Phone No:</u> {{ store['phone'] }}<br>
-                            <u>City:</u> {{ store['city'] }}<br>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
+        <div class="results-container">
+            <div class="result-card">
+                <div class="card-header">
+                    <i class="fas fa-hospital-alt"></i> Hospitals
+                </div>
+                <div class="card-body">
+                    {% if city and hospital_display %}
+                        {% for store in hospital_display %}
+                            <div class="result-item">
+                                <span class="result-label">Name:</span>
+                                <span class="result-value">{{ store['name'] }}</span>
+                                
+                                <span class="result-label">Address:</span>
+                                <span class="result-value">{{ store['address'] }}</span>
+                                
+                                <span class="result-label">Phone:</span>
+                                <span class="result-value">{{ store['phone'] }}</span>
+                                
+                                <span class="result-label">City:</span>
+                                <span class="result-value">{{ store['city'] }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="no-results">
+                            {% if city %}
+                                No hospitals found in {{ city }}
+                            {% else %}
+                                Enter a city to search for hospitals
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="card-header">
+                    <i class="fas fa-flask"></i> Laboratories
+                </div>
+                <div class="card-body">
+                    {% if city and lab_display %}
+                        {% for store in lab_display %}
+                            <div class="result-item">
+                                <span class="result-label">Name:</span>
+                                <span class="result-value">{{ store['name'] }}</span>
+                                
+                                <span class="result-label">Address:</span>
+                                <span class="result-value">{{ store['address'] }}</span>
+                                
+                                <span class="result-label">Phone:</span>
+                                <span class="result-value">{{ store['phone'] }}</span>
+                                
+                                <span class="result-label">City:</span>
+                                <span class="result-value">{{ store['city'] }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="no-results">
+                            {% if city %}
+                                No laboratories found in {{ city }}
+                            {% else %}
+                                Enter a city to search for laboratories
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="card-header">
+                    <i class="fas fa-pills"></i> Medical Stores
+                </div>
+                <div class="card-body">
+                    {% if city and medical_display %}
+                        {% for store in medical_display %}
+                            <div class="result-item">
+                                <span class="result-label">Name:</span>
+                                <span class="result-value">{{ store['name'] }}</span>
+                                
+                                <span class="result-label">Address:</span>
+                                <span class="result-value">{{ store['address'] }}</span>
+                                
+                                <span class="result-label">Phone:</span>
+                                <span class="result-value">{{ store['phone'] }}</span>
+                                
+                                <span class="result-label">City:</span>
+                                <span class="result-value">{{ store['city'] }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="no-results">
+                            {% if city %}
+                                No medical stores found in {{ city }}
+                            {% else %}
+                                Enter a city to search for medical stores
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
-    <h1> Copyright @2023 Hospital Managment System</h1>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> HealthCare Directory. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 </html>
