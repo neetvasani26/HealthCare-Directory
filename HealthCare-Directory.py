@@ -358,5 +358,9 @@ def search_hospital_stores():
 
     return render_template('hospital.html', city=city, hospital_display=hospital_result,lab_display=lab_result,medical_display=medical_result)
 
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))  # use the port given by Render
+    app.run(host='0.0.0.0', port=port)
